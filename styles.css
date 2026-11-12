@@ -238,29 +238,35 @@
     z-index: 11;
   }
 
-  /* Макет с боковыми фото для страницы ООО «Дружба» */
+  /* Фото сохраняют исходные пропорции и располагаются рядом с текстом. */
   .project-sides-layout {
     display: flex;
     justify-content: center;
-    align-items: stretch;
-    gap: 2.2rem;
+    align-items: center;
+    gap: clamp(1rem, 2vw, 2.2rem);
     padding: 2.2rem 1.5rem;
-    max-width: 1900px;
+    max-width: 1520px;
     margin: 0 auto;
   }
 
+  .project-sides-layout > .project-screen {
+    flex: 0 1 660px;
+    width: 100%;
+    margin: 0;
+  }
+
   .project-side-image {
-    display: flex;
-    align-items: center;
+    flex: 1 1 360px;
+    min-width: 0;
+    max-width: 360px;
   }
 
   .project-side-image img {
-    width: clamp(120px, 12vw, 260px);
-    height: 100%;
+    width: 100%;
+    height: auto;
     border-radius: 1em;
     box-shadow: 0 4px 18px var(--shadow);
     display: block;
-    object-fit: cover;
   }
   @keyframes fadeInText {
     0% {opacity: 0; transform: translateY(50px);}
