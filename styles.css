@@ -27,15 +27,10 @@
   
   /* Header */
   .header {
-    padding: 2rem 0 1rem 0;
+    padding: 2rem 1rem 1rem;
     background: linear-gradient(90deg, var(--green-light) 0%, var(--green-main) 100%);
     position: relative;
     text-align: center;
-  }
-  .header-decoration {
-    position: absolute;
-    top: 0.5rem;
-    left: 2rem;
   }
   
   h1 {
@@ -51,30 +46,11 @@
     margin-top: 0.3em;
   }
   
-  /* Белый основной фон сайта */
-body {
-    background: var(--background);
-    color: var(--text);
-    font-family: 'Segoe UI', 'Arial', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    /* УБИРАЕМ background-image здесь! */
+  #main-content {
+    flex: 1;
+    min-width: 0;
   }
-  
-  /* Фон только у основных белых секций */
-  .map-section,
-  .project-screen {
-    position: relative;
-    /* Сохраняем padding и z-index! */
-  
-    /* Новый фон: карта Мордовии, полупрозрачная */
-    background: 
-      url('map_mordovii.png') center center no-repeat;
-    background-size: contain; /* для внутренней страницы можно cover */
-    background-repeat: no-repeat;
-  }
-  
+
   /* Полупрозрачность для карты — через alpha PNG, либо фильтр: */
   .map-section::before,
   .project-screen::before {
@@ -93,11 +69,6 @@ body {
   .project-screen > * {
     position: relative;
     z-index: 1;
-  }
-  
-  /* Header и Footer не меняются */
-  .header, .footer {
-    /* нет никакого background-image! */
   }
   
   /* Для адаптива: */
@@ -121,7 +92,9 @@ body {
   }
   .map-container {
     position: relative;
-    width: 100vw;
+    width: 100%;
+    flex: 0 1 900px;
+    min-width: 0;
     max-width: 900px;
   }
   .map-image {
@@ -133,6 +106,8 @@ body {
 
   /* Боковые картинки по краям карты на главной */
   .map-side-image {
+    flex: 0 1 500px;
+    min-width: 0;
     max-width: 500px;
   }
 
@@ -229,67 +204,6 @@ body {
     padding: 1em 0.7em;
   }
 }
-/* Галерея агрокласса: боковые картинки и центральный текст */
-.agroclass-gallery {
-    display: flex;
-    gap: 2.6em;
-    align-items: flex-start;
-    justify-content: center;
-    margin: 2em 0 1em 0;
-    position: relative;
-  }
-  
-  .agroclass-image {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2em;
-    max-width: 170px;
-  }
-  .agroclass-image img {
-    width: 100%;
-    max-width: 170px;
-    border-radius: 1em;
-    box-shadow: 0 4px 18px var(--shadow);
-    object-fit: cover;
-  }
-  
-  /* Центрирование текста между картинками */
-  .agroclass-text {
-    flex: 1;
-    min-width: 280px;
-    max-width: 430px;
-    margin: 0 1em;
-    background: rgba(255,255,255,0.78); /* Белый фон для читаемости */
-    padding: 1em 1.1em;
-    border-radius: 1em;
-    box-shadow: 0 2px 12px var(--shadow);
-  }
-  
-  /* Для мобильных — вертикальный стек */
-  @media (max-width: 700px) {
-    .agroclass-gallery {
-      flex-direction: column;
-      gap: 1.2em;
-      align-items: stretch;
-    }
-    .agroclass-image {
-      flex-direction: row;
-      gap: 1em;
-      max-width: none;
-      justify-content: center;
-    }
-    .agroclass-image img {
-      max-width: 46vw;
-    }
-    .agroclass-text {
-      margin: 1em 0;
-      max-width: none;
-      min-width: 30vw;
-      padding: 1em 0.7em;
-    }
-  }
-  
-  
   /* Декоративные листья */
   .decoration-leaf {
     position: absolute;
@@ -312,6 +226,8 @@ body {
   /* Общие стили внутренних страниц */
   .project-screen {
     padding: 2.2rem 0.9rem 2.4rem 0.9rem;
+    min-width: 0;
+    overflow-wrap: anywhere;
     max-width: 660px;
     margin: auto;
     background: white;
@@ -339,7 +255,7 @@ body {
   }
 
   .project-side-image img {
-    width: clamp(550px, 10vw, 100px);
+    width: clamp(120px, 12vw, 260px);
     height: 100%;
     border-radius: 1em;
     box-shadow: 0 4px 18px var(--shadow);
@@ -353,7 +269,7 @@ body {
   .project-title {
     font-size: 1.6rem;
     margin: 0 0 1.2rem 0;
-    color: var(--green-main);
+    color: #376b24;
     text-align: left;
   }
 
@@ -369,7 +285,7 @@ body {
   .btn-back {
     margin-top: 1.7em;
     display: inline-block;
-    background: var(--brown);
+    background: #79573f;
     color: #fff;
     border: none;
     border-radius: 2em;
@@ -381,7 +297,7 @@ body {
     text-decoration: none;
   }
   .btn-back:hover, .btn-back:focus {
-    background: var(--green-main);
+    background: #376b24;
   }
   
   /* Медиа-запросы для адаптива (mobile-first!) */
@@ -404,3 +320,33 @@ body {
     h1 {font-size: 1.2rem;}
   }
   
+  /* На планшетах оставляем достаточно места для карты и текста. */
+  @media (max-width: 1000px) {
+    .map-side-image,
+    .project-side-image { display: none; }
+    .map-section { padding-inline: 0.5rem; }
+  }
+
+  /* Учитываем системную настройку уменьшения анимации. */
+  @media (prefers-reduced-motion: reduce) {
+    .project-screen { animation: none; }
+    .map-btn, .btn-back { transition: none; }
+  }
+
+  .mobile-project-picker { display: none; }
+  @media (max-width: 700px) {
+    .map-section { flex-direction: column; }
+    .map-container { flex: none; }
+    .mobile-project-picker { display: grid; gap: 0.5rem; width: 100%; }
+    .mobile-project-picker select {
+      width: 100%;
+      min-width: 0;
+      min-height: 44px;
+      padding: 0.5rem;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+      border: 1px solid #79573f;
+      border-radius: 0.4rem;
+    }
+  }

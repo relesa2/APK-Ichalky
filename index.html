@@ -7,73 +7,87 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Декоративное SVG-украшение в header -->
   <header role="banner" class="header">
-    <div class="header-decoration">
-      <svg width="100" height="60" viewBox="0 0 100 60" aria-hidden="true">
-        <ellipse cx="50" cy="30" rx="48" ry="18" fill="#b4e197" />
-        <ellipse cx="50" cy="40" rx="30" ry="10" fill="#e6ffe0" opacity="0.7" />
-      </svg>
-    </div>
     <h1>Путеводитель по агропромышленному комплексу<br>Ичалковского района Республики Мордовия</h1>
   </header>
 
   <main id="main-content">
     <section class="map-section" aria-label="Карта Ичалковского района">
       <div class="map-side-image map-side-image-left">
-        <img src="na_bok.jpg" alt="Фото на бок 1" />
+        <img src="na_bok.jpg" alt="" />
+      </div>
+      <div class="mobile-project-picker">
+        <label for="project-select">Выберите предприятие или колледж</label>
+        <select id="project-select">
+          <option value="">Выбрать из списка</option>
+          <option value="agroclass">ООО «Культура»</option>
+          <option value="agromir">Животноводческий комплекс &#x27;ООО «Дружба»&#x27;</option>
+          <option value="kemlya">ООО «Пермеевское»</option>
+          <option value="bekon">Производство &#x27;Мордовский Бекон&#x27;</option>
+          <option value="agroservice">ООО &#x27;Агропромсервис&#x27; село Оброчное</option>
+          <option value="troitskoe">ООО &#x27;Троицкое&#x27; посёлок Троицкий</option>
+          <option value="ichalki">ЗАО «Ичалки»</option>
+          <option value="may1">ООО «1 Мая»</option>
+          <option value="agroresurs">ООО «Агроресурс»</option>
+          <option value="college">Кемлянский аграрный колледж</option>
+          <option value="selhoztehnika">ООО «Сельхозтехника»</option>
+          <option value="insarovskoe">ООО «Инсаровское»</option>
+          <option value="sirzavod">Сыродельный комбинат «Ичалковский»</option>
+          <option value="spirt">Спиртовой завод «Кемлянский»</option>
+          <option value="kombinat">Мясокомбинат «Оброченский»</option>
+        </select>
       </div>
       <div class="map-container">
         <img src="map_ichalki.png" alt="Карта Ичалковского района" class="map-image" />
         <!-- Кнопки-картинки, реальные координаты подбираются по макету карты -->
-        <button class="map-btn" data-project="agroclass" style="top: 35%; left: 10%;" aria-label="ООО «Культура»">
+        <button type="button" class="map-btn" data-project="agroclass" style="top: 35%; left: 10%;" aria-label="ООО «Культура»">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="agromir" style="top: 40%; left: 17%;" aria-label="Животноводческий комплекс 'ООО «Дружба»'">
+        <button type="button" class="map-btn" data-project="agromir" style="top: 40%; left: 17%;" aria-label="Животноводческий комплекс 'ООО «Дружба»'">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="kemlya" style="top: 76%; left: 20%;" aria-label="ООО «Пермеевское»">
+        <button type="button" class="map-btn" data-project="kemlya" style="top: 76%; left: 20%;" aria-label="ООО «Пермеевское»">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="bekon" style="top: 75%; left: 50%;" aria-label="Производство 'Мордовский Бекон'">
+        <button type="button" class="map-btn" data-project="bekon" style="top: 75%; left: 50%;" aria-label="Производство 'Мордовский Бекон'">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="agroservice" style="top: 55%; left: 40%;" aria-label="ООО 'Агропромсервис' село Оброчное">
+        <button type="button" class="map-btn" data-project="agroservice" style="top: 55%; left: 40%;" aria-label="ООО 'Агропромсервис' село Оброчное">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="troitskoe" style="top: 47%; left: 52%;" aria-label="ООО 'Троицкое' посёлок Троицкий">
+        <button type="button" class="map-btn" data-project="troitskoe" style="top: 47%; left: 52%;" aria-label="ООО 'Троицкое' посёлок Троицкий">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="ichalki" style="top: 49%; left: 31%;" aria-label="ЗАО «Ичалки»">
+        <button type="button" class="map-btn" data-project="ichalki" style="top: 49%; left: 31%;" aria-label="ЗАО «Ичалки»">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="may1" style="top: 36%; left: 58%;" aria-label="ООО «1 Мая»">
+        <button type="button" class="map-btn" data-project="may1" style="top: 36%; left: 58%;" aria-label="ООО «1 Мая»">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="agroresurs" style="top: 80%; left: 45%;" aria-label="ООО «Агроресурс»">
+        <button type="button" class="map-btn" data-project="agroresurs" style="top: 80%; left: 45%;" aria-label="ООО «Агроресурс»">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="koledge" style="top: 45%; left: 27%;" aria-label="Кемлянский аграрный колледж">
+        <button type="button" class="map-btn" data-project="college" style="top: 45%; left: 27%;" aria-label="Кемлянский аграрный колледж">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="selhoztehnika" style="top: 52%; left: 35%;" aria-label="ООО «Сельхозтехника»">
+        <button type="button" class="map-btn" data-project="selhoztehnika" style="top: 52%; left: 35%;" aria-label="ООО «Сельхозтехника»">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="insarovskoe" style="top: 75%; left: 45%;" aria-label="ООО «Инсаровское»">
+        <button type="button" class="map-btn" data-project="insarovskoe" style="top: 75%; left: 45%;" aria-label="ООО «Инсаровское»">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="sirzavod" style="top: 54%; left: 30%;" aria-label="Сыродельный комбинат «Ичалковский»">
+        <button type="button" class="map-btn" data-project="sirzavod" style="top: 54%; left: 30%;" aria-label="Сыродельный комбинат «Ичалковский»">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="spirt" style="top: 47%; left: 20%;" aria-label="Спиртовой завод «Кемлянский»">
+        <button type="button" class="map-btn" data-project="spirt" style="top: 47%; left: 20%;" aria-label="Спиртовой завод «Кемлянский»">
           <img src="button.png" alt="" />
         </button>
-        <button class="map-btn" data-project="kombinat" style="top: 58%; left: 35%;" aria-label="Мясокомбинат «Оброченский»">
+        <button type="button" class="map-btn" data-project="kombinat" style="top: 58%; left: 35%;" aria-label="Мясокомбинат «Оброченский»">
           <img src="button.png" alt="" />
         </button>
       </div>
       <div class="map-side-image map-side-image-right">
-        <img src="na_bok2.jpg" alt="Фото на бок 2" />
+        <img src="na_bok2.jpg" alt="" />
       </div>
     </section>
   </main>

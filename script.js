@@ -102,7 +102,7 @@ const projectData = {
         <p>ООО «Агроресурс» вносит вклад в развитие растениеводства Ичалковского района и обеспечивает поставки зерновых культур на внутренний и внешний рынки.</p>
       `
     },
-    koledge: {
+    college: {
       title: 'ГБПОУ РМ «Кемлянский аграрный колледж»',
       content: `
         <p>Государственное бюджетное профессиональное образовательное учреждение «Кемлянский аграрный колледж» — ведущее образовательное учреждение аграрного профиля Ичалковского района, расположенное в селе Кемля.</p>
@@ -168,11 +168,17 @@ const projectData = {
   
   // Создаем переключение экранов (роутинг по SPA-подходу)
   const mainSection = document.getElementById('main-content');
-  const mapBtns = document.querySelectorAll('.map-btn');
+  const mainScreenHTML = mainSection.innerHTML;
+  let mainScrollY = 0;
+  let activeProjectKey = null;
   
   function renderProjectScreen(key) {
     const project = projectData[key];
     if (!project) return;
+    if (!mainSection.querySelector('.project-screen')) {
+      mainScrollY = window.scrollY;
+    }
+    activeProjectKey = key;
 
     const sectionHTML = `
       <section class="project-screen" aria-labelledby="project-title">
@@ -197,7 +203,7 @@ const projectData = {
       agromir: { left: 'OOO_drujba.jpg', right: 'OOO_drujba1.jpg' },
       agroservice: { left: 'agroservis.jpg', right: 'agroservis1.jpg' },
       troitskoe: { left: 'troickoe.jpg', right: 'troickoe1.jpg' },
-      koledge: { left: 'koledge.jpg', right: 'koledge1.jpg' },
+      college: { left: 'koledge.jpg', right: 'koledge1.jpg' },
       selhoztehnika: { left: 'selhoztehnika.jpg', right: 'selhoztehnika1.jpg' },
       sirzavod: { left: 'sirzavod.jpg', right: 'sirzavod1.jpg' },
       spirt: { left: 'spirt.jpg', right: 'spirt1.jpg' },
@@ -206,45 +212,60 @@ const projectData = {
 
     const side = sideImagesByKey[key] ?? { left: 'pole1.jpg', right: 'pole2.jpg' };
 
+    // Экранируем название для безопасного использования внутри атрибута alt.
+    const photoAlt = project.title.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const sideAlt = key in sideImagesByKey && !side.left.startsWith('pole')
+      ? `Фото: ${photoAlt}` : '';
+
     // Для всех страниц делаем боковые картинки (как у «Дружбы»): свои, либо `pole`
     mainSection.innerHTML = `
       <div class="project-sides-layout">
         <div class="project-side-image project-side-image-left">
-          <img src="${side.left}" alt="" />
+          <img src="${side.left}" alt="${sideAlt}" />
         </div>
         ${sectionHTML}
         <div class="project-side-image project-side-image-right">
-          <img src="${side.right}" alt="" />
+          <img src="${side.right}" alt="${sideAlt}" />
         </div>
       </div>
     `;
-    // Добавим анимацию появления (reflow)
-    document.querySelector('.project-screen').style.animation = 'fadeInText 0.85s cubic-bezier(.29,.7,.78,.83)';
     // Обработчик на кнопку возврата на главную
     document.getElementById('btn-back').onclick = renderMainScreen;
+    document.getElementById('project-title').setAttribute('tabindex', '-1');
+    document.getElementById('project-title').focus({ preventScroll: true });
+    window.scrollTo(0, 0);
   }
   
-  // Восстановление главного экрана
+  // Восстанавливаем разметку, обработчики, фокус и позицию прокрутки.
   function renderMainScreen() {
-    window.location.reload(); // проще всего для demo, либо реализовать отдельный рендер главной
+    mainSection.innerHTML = mainScreenHTML;
+    bindMapButtons();
+    const previousButton = mainSection.querySelector(`[data-project="${activeProjectKey}"]`);
+    const picker = document.getElementById('project-select');
+    const focusTarget = picker && picker.offsetParent !== null ? picker : previousButton;
+    if (focusTarget) focusTarget.focus({ preventScroll: true });
+    window.scrollTo(0, mainScrollY);
   }
-  
-  // Слушатели нажатий на кнопки на карте
-  mapBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      renderProjectScreen(btn.dataset.project);
+
+  function bindMapButtons() {
+    const picker = document.getElementById('project-select');
+    if (picker) {
+      picker.addEventListener('change', () => {
+        if (picker.value) renderProjectScreen(picker.value);
+      });
+    }
+    mainSection.querySelectorAll('.map-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        renderProjectScreen(btn.dataset.project);
+      });
     });
-  });
-  
+  }
+
+  bindMapButtons();
+
   // Добавим возможность возврата по клавише Escape
   window.addEventListener('keydown', e => {
     if (e.key === 'Escape' && document.querySelector('.project-screen')) {
       renderMainScreen();
     }
   });
-  
-  /*
-   * Примечание: если нужна “чилдрен” навигация без перезагрузки (SPA), можно дополнить history.pushState
-   * и вместо reload просто восстанавливать содержимое из шаблона для главной
-   */
-  
